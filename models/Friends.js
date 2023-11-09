@@ -4,7 +4,7 @@ const friendSchema = new Schema(
     {
         friendId: {
             type: Schema.Types.ObjectId,
-            default: () => new Types.ObjectId();
+            default: () => new Types.ObjectId(),
         },
         username: {
             type: String,
