@@ -32,4 +32,4 @@
 
 # Walk-Through Video
 
-![Video Walk Through](./)
+![Video Walk Through](./Challenge_18_Walk_Through.webm)

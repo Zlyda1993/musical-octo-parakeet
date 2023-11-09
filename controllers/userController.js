@@ -16,13 +16,13 @@ module.exports = {
     },
     async getSingleUser(req, res) {
         try {
-            const user = await User.findOne({ _id: req.params.userId }).select('-__v');
+            const user = await User.findOne({ id: req.params.userId })
 
             if (!user) {
                 return res.status(404).json({ message: 'No user by that ID' })
             }
 
-            res.join({
+            res.json({
                 user,
             });
         } catch (err) {
@@ -40,7 +40,7 @@ module.exports = {
     },
     async deleteUser(req, res) {
         try {
-            const user = await User.findOneAndRemove({ _id: req.params.userId});
+            const user = await User.findOneAndDelete({ id: req.params.userId});
 
             if (!user) {
                 return res.status(404).json({ message: 'No such user exists' });
@@ -67,7 +67,7 @@ module.exports = {
     async updateUser(req, res) {
         try {
             const user = await User.findByIdAndUpdate(
-                { _id: req.params.userId },
+                { _id: req.params.usersId },
                 { $set: req.body },
                 { runValidators: true, new: true }
             );
@@ -76,7 +76,7 @@ module.exports = {
                 res.status(404).json({ message: 'No user by this id!' });
             }
 
-            res,json(user);
+            res.json(user);
         } catch (err) {
             res.status(500).json(err);
         }
@@ -87,7 +87,7 @@ module.exports = {
 
         try {
             const user = await User.findOneAndUpdate(
-                { _id: req.params.userId },
+                { id: req.params.usersId },
                 { $addToSet: { friends: req.body } },
                 { runValidators: true, new: true }
             );
@@ -113,7 +113,7 @@ module.exports = {
                 return res.status(404).json({ message: 'No user found with that ID'});
             }
 
-            res.json(user);
+            res.json({ message: 'Friend has been successfully deleted' });
         } catch (err) {
             res.status(500).json(err);
         }
